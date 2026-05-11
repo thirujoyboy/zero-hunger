@@ -1,23 +1,4 @@
 import express from 'express';
-import { createServer as createViteServer } from 'vite';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import authRoutes from './server/routes/authRoutes.ts';
-import foodRoutes from './server/routes/foodRoutes.ts';
-import adminRoutes from './server/routes/adminRoutes.ts';
-
-dotenv.config();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-export const app = express();
-const PORT = parseInt(process.env.PORT || '3000', 10);
-
-async function startServer() {
-
 import cors from 'cors';
 import path from 'path';
 import mongoose from 'mongoose';
