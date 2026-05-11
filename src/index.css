@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Syne", sans-serif;
+  
+  --color-zh-dark: #0e1a14;
+  --color-zh-card: #162318;
+  --color-zh-green: #2ecc71;
+  --color-zh-green-light: rgba(46, 204, 113, 0.1);
+  --color-zh-blue: #4da6ff;
+  --color-zh-blue-light: rgba(77, 166, 255, 0.1);
+  --color-zh-yellow: #f0c040;
+  --color-zh-yellow-light: rgba(240, 192, 64, 0.1);
+  --color-zh-red: #ff4d4d;
+  --color-zh-red-light: rgba(255, 77, 77, 0.1);
+
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-100: #d1fae5;
+  --color-emerald-200: #a7f3d0;
+  --color-emerald-300: #6ee7b7;
+  --color-emerald-400: #34d399;
+  --color-emerald-500: #10b981;
+  --color-emerald-600: #059669;
+  --color-emerald-700: #047857;
+  --color-emerald-800: #065f46;
+  --color-emerald-900: #064e3b;
+}
+
+body {
+  @apply antialiased text-gray-900 bg-white selection:bg-emerald-100 selection:text-emerald-900 transition-colors duration-300;
+}
+
+.dark body {
+  @apply bg-slate-950 text-slate-100 selection:bg-emerald-900 selection:text-emerald-100;
+}
+
+.dark .bg-white {
+  @apply bg-slate-900 border-slate-800;
+}
+
+.dark .text-gray-900 {
+  @apply text-white;
+}
+
+.dark .text-gray-600, .dark .text-gray-500 {
+  @apply text-slate-400;
+}
+
+.dark .bg-gray-50 {
+  @apply bg-slate-900/50 border-slate-800;
+}
+
+.dark .border-gray-100, .dark .border-emerald-100 {
+  @apply border-emerald-900/30;
+}
+
+.dark .bg-emerald-50 {
+  @apply bg-emerald-950/20 border-emerald-900/30;
+}

@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: zero-hunger
+    runtime: node
+    buildCommand: npm run render-build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        value: zero_hunger_jwt_secret_key_2024
