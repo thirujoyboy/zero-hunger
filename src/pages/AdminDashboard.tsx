@@ -151,7 +151,7 @@ const AdminDashboard: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-zh-dark flex font-sans text-slate-100">
+    <div className="min-h-screen bg-zh-dark flex font-sans text-slate-100 pb-20 lg:pb-0">
       {/* Admin Sidebar */}
       <aside className="w-64 bg-zh-card border-r border-slate-800/50 hidden lg:flex flex-col sticky top-16 h-[calc(100vh-4rem)]">
         <div className="p-6">
@@ -182,8 +182,26 @@ const AdminDashboard: React.FC = () => {
         </div>
       </aside>
 
+      {/* Mobile Navigation */}
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-zh-card border-t border-slate-800/50 flex justify-around p-2 z-50">
+        {sidebarItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setActiveTab(item.id as any)}
+            className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all ${
+              activeTab === item.id 
+                ? 'text-zh-green bg-zh-green-light' 
+                : 'text-slate-400'
+            }`}
+          >
+            <item.icon className="h-5 w-5" />
+            <span className="text-[10px] font-medium">${item.label}</span>
+          </button>
+        ))}
+      </nav>
+
       {/* Main Content */}
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-4 lg:p-8">
         <header className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-heading font-bold text-white capitalize">{activeTab} Management</h1>
