@@ -1,42 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.tsx';
-import { LogOut, User, Leaf, LayoutDashboard, Sun, Moon } from 'lucide-react';
-
-const Navbar: React.FC = () => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    if (localStorage.getItem('theme') === 'dark') {
-      document.documentElement.classList.add('dark');
-      setIsDark(true);
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    if (isDark) {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    } else {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    }
-    setIsDark(!isDark);
-  };
-
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
-
-  return (
-    <nav className="bg-white border-b border-emerald-100 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex">
-            <Link to="/" className="flex-shrink-0 flex items-center gap-2">
+            <Link to="/" className="flex-shrink-0 flex items-center gap-1.5">
               <Leaf className="h-8 w-8 text-emerald-600" />
               <span className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
                 Zero Hunger
@@ -44,7 +6,8 @@ const Navbar: React.FC = () => {
             </Link>
           </div>
 
-          <div className="flex items-center gap-4">
+
+          <div className="flex items-center gap-2">
             <button
               onClick={toggleTheme}
               className="p-2 text-gray-500 hover:text-emerald-600 rounded-full hover:bg-emerald-50 transition-all dark:hover:bg-emerald-900/30"
@@ -63,11 +26,17 @@ const Navbar: React.FC = () => {
                 </Link>
                 <Link
                   to="/profile"
-                  className="flex items-center gap-2 px-3 py-1 bg-emerald-50 rounded-full border border-emerald-100 hover:bg-emerald-100 transition-colors"
+                  className="flex items-center gap-1.5 px-2 py-1 bg-emerald-50 rounded-full border border-emerald-100 hover:bg-emerald-100 transition-colors"
                 >
                   <User className="h-4 w-4 text-emerald-600" />
-                  <span className="text-sm font-medium text-emerald-800">{user.name}</span>
-                  <span className="text-[10px] uppercase tracking-wider text-emerald-500 font-bold ml-1">{user.role}</span>
+                  <div className="flex flex-col">
+                    <span className="hidden sm:block text-xs font-medium text-emerald-900 leading-none truncate max-w-[80px]">
+                      {user.name}
+                    </span>
+                    <span className="text-[10px] text-emerald-600 uppercase tracking-wider font-bold">
+                      {user.role}
+                    </span>
+                  </div>
                 </Link>
                 <button
                   onClick={handleLogout}
@@ -100,4 +69,6 @@ const Navbar: React.FC = () => {
   );
 };
 
+
 export default Navbar;
+
