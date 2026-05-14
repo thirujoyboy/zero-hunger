@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar.tsx';
 import LandingPage from './pages/LandingPage.tsx';
 import LoginPage from './pages/LoginPage.tsx';
@@ -30,52 +30,64 @@ const PublicRoute = ({ children }: { children: ReactNode }) => {
   return <>{children}</>;
 };
 
+function AppRoutes() {
+  const location = useLocation();
+  const isAdminPage = location.pathname === '/admin-dashboard';
+
+  return (
+    <>
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+          <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
+          
+          <Route 
+            path="/donor-dashboard" 
+            element={
+              <PrivateRoute role={UserRole.DONOR}>
+                <DonorDashboard />
+              </PrivateRoute>
+            } 
+          />
+          
+          <Route 
+            path="/volunteer-dashboard" 
+            element={
+              <PrivateRoute role={UserRole.VOLUNTEER}>
+                <VolunteerDashboard />
+              </PrivateRoute>
+            } 
+          />
+
+          <Route 
+            path="/admin-dashboard" 
+            element={
+              <PrivateRoute role={UserRole.ADMIN}>
+                <AdminDashboard />
+              </PrivateRoute>
+            } 
+          />
+          <Route path="/profile" element={<ProfilePage />} />
+        </Routes>
+      </main>
+      {!isAdminPage && (
+        <footer className="bg-white border-t border-gray-100 py-12 mt-auto">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p className="text-gray-500 text-sm">© 2024 Zero Hunger. Making the world better, one delivery at a time.</p>
+          </div>
+        </footer>
+      )}
+    </>
+  );
+}
 
 function AppContent() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-50 flex flex-col">
         <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
-            <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
-            
-            <Route 
-              path="/donor-dashboard" 
-              element={
-                <PrivateRoute role={UserRole.DONOR}>
-                  <DonorDashboard />
-                </PrivateRoute>
-              } 
-            />
-            
-            <Route 
-              path="/volunteer-dashboard" 
-              element={
-                <PrivateRoute role={UserRole.VOLUNTEER}>
-                  <VolunteerDashboard />
-                </PrivateRoute>
-              } 
-            />
-
-            <Route 
-              path="/admin-dashboard" 
-              element={
-                <PrivateRoute role={UserRole.ADMIN}>
-                  <AdminDashboard />
-                </PrivateRoute>
-              } 
-            />
-            <Route path="/profile" element={<ProfilePage />} />
-          </Routes>
-        </main>
-        <footer className="bg-white border-t border-gray-100 py-12 mt-auto">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-gray-500 text-sm">© 2024 Zero Hunger. Making the world better, one delivery at a time.</p>
-          </div>
-        </footer>
+        <AppRoutes />
       </div>
     </Router>
   );
