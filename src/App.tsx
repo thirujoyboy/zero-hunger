@@ -12,8 +12,12 @@ import { AuthProvider, useAuth } from './context/AuthContext.tsx';
 import { UserRole } from './types.ts';
 
 
+
+
 const PrivateRoute = ({ children, role }: { children: ReactNode, role: UserRole }) => {
   const { user, isLoading } = useAuth();
+
+
 
 
   if (isLoading) return <div className="flex justify-center items-center h-screen"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div></div>;
@@ -21,23 +25,24 @@ const PrivateRoute = ({ children, role }: { children: ReactNode, role: UserRole 
   if (user.role !== role) return <Navigate to="/" />;
 
 
+
+
   return <>{children}</>;
 };
+
+
 
 
 const PublicRoute = ({ children }: { children: ReactNode }) => {
   const { user, isLoading } = useAuth();
 
 
+
+
   if (isLoading) return <div className="flex justify-center items-center h-screen"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div></div>;
   if (user) return <Navigate to="/" />;
 
 
+
+
   return <>{children}</>;
-};
-
-
-function AppRoutes() {
-  const location = useLocation();
-  const isAdminPage = location.pathname === '/admin-dashboard';
-
